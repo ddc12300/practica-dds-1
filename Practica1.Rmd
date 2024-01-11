@@ -67,6 +67,7 @@ Al final, se prepararía un informe o una presentación con los resultados del a
 library(readr)
 
 data <- read_table("epa-http.csv", col_names = FALSE)
+colnames(data) <- c("IP", "Timestamp", "Tipo", "URL", " Protocolo", "Respuesta", "Bytes" )
 View(data)
 ```
 
@@ -85,7 +86,17 @@ print(paste("Número de columnas:", num_columnas))
 2.  Valor medio de la columna Bytes
 
 ```{r valor-medio-bytes}
-# Asumiendo que X7 es la columna de Bytes
-mean_bytes <- mean(data$X7, na.rm = TRUE)
+# Asumiendo que la séptima columna corresponde a los Bytes
+data$Bytes <- as.numeric(data$Bytes)
+mean_bytes <- mean(data$Bytes, na.rm = TRUE)
 paste("El valor medio de la columna Bytes es:", mean_bytes)
 ```
+
+
+###Pregunta 2:De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?
+
+```{r ips_educativas}
+ips_educativas <- sum(str_detect(data$IP, "\\.edu$"))
+paste("El número de dominios educativos identificados son ", ips_educativas)
+```
+      
