@@ -92,11 +92,34 @@ mean_bytes <- mean(data$Bytes, na.rm = TRUE)
 paste("El valor medio de la columna Bytes es:", mean_bytes)
 ```
 
-
 ###Pregunta 2:De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?
 
 ```{r ips_educativas}
 ips_educativas <- sum(str_detect(data$IP, "\\.edu$"))
 paste("El número de dominios educativos identificados son ", ips_educativas)
 ```
-      
+
+###Pregunta 3:De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?
+
+```{r hora-mayor-volumen}
+# Extraemos la hora del Timestamp asumiendo que el formato es [día:hora:minuto:segundo]
+# y que los datos están en la columna 'Timestamp'
+data$Hour <- str_extract(data$Timestamp, "(?<=:)[0-9]{2}(?=:)")
+
+# Contamos las peticiones GET por hora
+get_requests <- data[data$Tipo == "\"GET", ]
+hour_with_most_gets <- which.max(table(get_requests$Hour))
+
+hour_with_most_gets_name <- names(hour_with_most_gets)
+paste("La hora con mayor volumen de peticiones GET es:", hour_with_most_gets_name, "con ")
+```
+
+###Pregunta 4: De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?
+
+```{r bytes-txt-edu}
+# Asumiendo que X1 es la columna de IPs y X4 es la columna de URL
+data$Bytes <- as.numeric(data$Bytes)
+edu_requests <- data[str_detect(data$IP, "\\.edu$") & str_detect(data$URL, "\\.txt$"), ]
+total_bytes_txt_edu <- sum(edu_requests$Bytes, na.rm = TRUE)
+paste("Total de bytes transmitidos en peticiones .txt por .edu:", total_bytes_txt_edu)
+```
