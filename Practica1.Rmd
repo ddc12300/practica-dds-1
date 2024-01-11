@@ -54,3 +54,22 @@ Para hacer más fácil la interpretación de los datos, se crearían gráficos c
 
 ### 6. Comunicación de Resultados
 Al final, se prepararía un informe o una presentación con los resultados del análisis. Se usarían las visualizaciones para hacer que la información sea más accesible y se explicaría lo que se encontró de manera clara y sencilla.
+
+
+
+##2. Introducción a R
+
+###Pregunta 1:
+Una vez cargado el Dataset a analizar, comprobando que se cargan las IPs, el
+Timestamp, la Petición (Tipo, URL y Protocolo), Código de respuesta, y Bytes de reply.
+Para importar el data frame usando el delimitador espacio
+
+
+
+1. Cuales son las dimensiones del dataset cargado (número de filas y columnas)
+
+
+
+2. Valor medio de la columna Bytes
+
+
