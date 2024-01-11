@@ -28,3 +28,29 @@ output:
 4.  Dado los registros de usuarios de un servicio de compras por internet, los usuarios pueden agruparse por preferencias de productos comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y según su historial, pueda ser directamente asignado a un o diversos grupos?
 
 **Inferencial**: Se busca inferir si un usuario puede ser asignado a un grupo basado en su historial de compras.
+
+
+
+### Pregunta 2: Considera el siguiente escenario:
+
+Sabemos que un usuario de nuestra red empresarial ha estado usando esta para fines no relacionados con el trabajo, como por ejemplo tener un servicio web no autorizado abierto a la red (otros usuarios tienen servicios web activados y autorizados). No queremos tener que rastrear los puertos de cada PC, y sabemos que la actividad puede haber cesado. Pero podemos acceder a los registros de conexiones TCP de cada máquina de cada trabajador (hacia donde abre conexión un PC concreto). Sabemos que nuestros clientes se conectan desde lugares remotos de forma legítima, como parte de nuestro negocio, y que un trabajador puede haber habilitado temporalmente servicios de prueba. Nuestro objetivo es reducir lo posible la lista de posibles culpables, con tal de explicarles que por favor no expongan nuestros sistemas sin permiso de los operadores o la dirección.
+
+Para abordar el escenario propuesto mediante Data Science, se seguiría un proceso estructurado que comprende la obtención y tratamiento de datos, análisis exploratorio, identificación de patrones, visualización y comunicación de resultados. A continuación se detallan los pasos del proceso de forma concisa y en tercera persona:
+
+### 1. Obtención de Datos
+Como punto de partida, se usarían los registros de conexiones TCP de las computadoras de los empleados. Estos registros incluirían detalles como las direcciones IP, los puertos y las marcas de tiempo, que son clave para el análisis.
+
+### 2. Tratamiento de Datos
+Antes de analizar los datos, sería necesario limpiarlos para quitar cualquier información irrelevante o incorrecta. Esto implicaría eliminar datos duplicados y normalizar los formatos de las direcciones IP y los puertos.
+
+### 3. Análisis Exploratorio
+El siguiente paso sería echar un vistazo general a los datos para entender qué está pasando. Se calcularían algunas estadísticas básicas y se observaría cómo se distribuyen las conexiones a lo largo del tiempo para detectar cualquier cosa fuera de lo común.
+
+### 4. Identificación de Patrones
+Para encontrar pistas sobre los servicios web no autorizados, se aplicarían métodos como el agrupamiento de datos (clustering) y la detección de anomalías. La idea sería buscar cualquier patrón de conexión que no encaje con lo que se espera de un uso normal.
+
+### 5. Visualización de Datos
+Para hacer más fácil la interpretación de los datos, se crearían gráficos como mapas de calor o gráficos de red. Estas visualizaciones ayudarían a ver mejor los patrones y a explicar los hallazgos a otras personas.
+
+### 6. Comunicación de Resultados
+Al final, se prepararía un informe o una presentación con los resultados del análisis. Se usarían las visualizaciones para hacer que la información sea más accesible y se explicaría lo que se encontró de manera clara y sencilla.
