@@ -29,8 +29,6 @@ output:
 
 **Inferencial**: Se busca inferir si un usuario puede ser asignado a un grupo basado en su historial de compras.
 
-
-
 ### Pregunta 2: Considera el siguiente escenario:
 
 Sabemos que un usuario de nuestra red empresarial ha estado usando esta para fines no relacionados con el trabajo, como por ejemplo tener un servicio web no autorizado abierto a la red (otros usuarios tienen servicios web activados y autorizados). No queremos tener que rastrear los puertos de cada PC, y sabemos que la actividad puede haber cesado. Pero podemos acceder a los registros de conexiones TCP de cada máquina de cada trabajador (hacia donde abre conexión un PC concreto). Sabemos que nuestros clientes se conectan desde lugares remotos de forma legítima, como parte de nuestro negocio, y que un trabajador puede haber habilitado temporalmente servicios de prueba. Nuestro objetivo es reducir lo posible la lista de posibles culpables, con tal de explicarles que por favor no expongan nuestros sistemas sin permiso de los operadores o la dirección.
@@ -38,38 +36,56 @@ Sabemos que un usuario de nuestra red empresarial ha estado usando esta para fin
 Para abordar el escenario propuesto mediante Data Science, se seguiría un proceso estructurado que comprende la obtención y tratamiento de datos, análisis exploratorio, identificación de patrones, visualización y comunicación de resultados. A continuación se detallan los pasos del proceso de forma concisa y en tercera persona:
 
 ### 1. Obtención de Datos
+
 Como punto de partida, se usarían los registros de conexiones TCP de las computadoras de los empleados. Estos registros incluirían detalles como las direcciones IP, los puertos y las marcas de tiempo, que son clave para el análisis.
 
 ### 2. Tratamiento de Datos
+
 Antes de analizar los datos, sería necesario limpiarlos para quitar cualquier información irrelevante o incorrecta. Esto implicaría eliminar datos duplicados y normalizar los formatos de las direcciones IP y los puertos.
 
 ### 3. Análisis Exploratorio
+
 El siguiente paso sería echar un vistazo general a los datos para entender qué está pasando. Se calcularían algunas estadísticas básicas y se observaría cómo se distribuyen las conexiones a lo largo del tiempo para detectar cualquier cosa fuera de lo común.
 
 ### 4. Identificación de Patrones
+
 Para encontrar pistas sobre los servicios web no autorizados, se aplicarían métodos como el agrupamiento de datos (clustering) y la detección de anomalías. La idea sería buscar cualquier patrón de conexión que no encaje con lo que se espera de un uso normal.
 
 ### 5. Visualización de Datos
+
 Para hacer más fácil la interpretación de los datos, se crearían gráficos como mapas de calor o gráficos de red. Estas visualizaciones ayudarían a ver mejor los patrones y a explicar los hallazgos a otras personas.
 
 ### 6. Comunicación de Resultados
+
 Al final, se prepararía un informe o una presentación con los resultados del análisis. Se usarían las visualizaciones para hacer que la información sea más accesible y se explicaría lo que se encontró de manera clara y sencilla.
-
-
 
 ##2. Introducción a R
 
-###Pregunta 1:
-Una vez cargado el Dataset a analizar, comprobando que se cargan las IPs, el
-Timestamp, la Petición (Tipo, URL y Protocolo), Código de respuesta, y Bytes de reply.
-Para importar el data frame usando el delimitador espacio
+###Pregunta 1: Una vez cargado el Dataset a analizar, comprobando que se cargan las IPs, el Timestamp, la Petición (Tipo, URL y Protocolo), Código de respuesta, y Bytes de reply. Para importar el data frame usando el delimitador espacio
 
+```{r dataset}
+library(readr)
 
+data <- read_table("epa-http.csv", col_names = FALSE)
+View(data)
+```
 
-1. Cuales son las dimensiones del dataset cargado (número de filas y columnas)
+1.  Cuales son las dimensiones del dataset cargado (número de filas y columnas)
 
+```{r dimensiones}
+# Número de filas
+num_filas <- nrow(data)
+print(paste("Número de filas:", num_filas))
 
+# Número de columnas
+num_columnas <- ncol(data)
+print(paste("Número de columnas:", num_columnas))
+```
 
-2. Valor medio de la columna Bytes
+2.  Valor medio de la columna Bytes
 
-
+```{r valor-medio-bytes}
+# Asumiendo que X7 es la columna de Bytes
+mean_bytes <- mean(data$X7, na.rm = TRUE)
+paste("El valor medio de la columna Bytes es:", mean_bytes)
+```
