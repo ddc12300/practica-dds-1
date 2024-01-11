@@ -123,3 +123,22 @@ edu_requests <- data[str_detect(data$IP, "\\.edu$") & str_detect(data$URL, "\\.t
 total_bytes_txt_edu <- sum(edu_requests$Bytes, na.rm = TRUE)
 paste("Total de bytes transmitidos en peticiones .txt por .edu:", total_bytes_txt_edu)
 ```
+
+###Pregunta 5: Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?
+
+```{r num-peticiones-slash}
+
+num_peticiones_slash <- sum(data$URL == "/", na.rm = TRUE)
+
+paste("Total de peticiones a la URL '/':", num_peticiones_slash)
+```
+
+###Pregunta 6: Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"?
+
+```{r num-peticiones-no-https2.0}
+
+num_peticiones_no_http <- sum(data$Protocolo != "HTTP/0.2\"")
+
+paste("Total de peticiones que no son con el protocolo HTTP/0.2:", num_peticiones_no_http)
+```
+
