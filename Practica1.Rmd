@@ -67,7 +67,7 @@ Al final, se prepararía un informe o una presentación con los resultados del a
 library(readr)
 
 data <- read_table("epa-http.csv", col_names = FALSE)
-colnames(data) <- c("IP", "Timestamp", "Tipo", "URL", " Protocolo", "Respuesta", "Bytes" )
+colnames(data) <- c("IP", "Timestamp", "Tipo", "URL", "Protocolo", "Respuesta", "Bytes" )
 View(data)
 ```
 
