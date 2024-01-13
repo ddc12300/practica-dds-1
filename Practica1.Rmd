@@ -85,13 +85,24 @@ wpbfl2-45.gate.net [29:23:54:18] "GET /logos/small_gopher.gif HTTP/1.0" 200 935
 
 ### Pregunta 1: Una vez cargado el Dataset a analizar, comprobando que se cargan las IPs, el Timestamp, la Petición (Tipo, URL y Protocolo), Código de respuesta, y Bytes de reply. Responde a las preguntas númeradas a continuación:
 
+Utilizando la librería `readr`, cargamos el dataset en nuestro entorno de trabajo en R. En concreto, utilizamos la función `read_table`, que está optimizada para leer archivos grandes al interpretar automáticamente que cada espacio en blanco es un separador entre columnas. Esto nos facilita mucho el trabajo en los siguientes ejercicios.
+
+La función es invocada de la siguiente manera:
+
 ```{r dataset}
 library(readr)
-
 data <- read_table("epa-http.csv", col_names = FALSE)
-colnames(data) <- c("IP", "Timestamp", "Tipo", "URL", "Protocolo", "Respuesta", "Bytes" )
-View(data)
 ```
+
+Aquí, `read_table` se aplica al archivo "epa-http.csv", y el argumento `col_names = FALSE` indica que el archivo no contiene una fila de cabecera con nombres de columnas. Como resultado, R lee el archivo y asume que cada columna está separada por espacios, creando un dataframe donde cada columna corresponde a un campo del archivo original.
+
+Una vez cargado el dataframe, procedemos a asignar nombres significativos a sus columnas para facilitar el análisis posterior:
+
+```{r columnas}
+colnames(data) <- c("IP", "Timestamp", "Tipo", "URL", "Protocolo", "Respuesta", "Bytes")
+```
+
+Esto nos permite referirnos a cada columna por un nombre legible que describe los datos que contiene, mejorando la claridad y mantenibilidad del código en los pasos de análisis subsiguientes.
 
 1.  Cuales son las dimensiones del dataset cargado (número de filas y columnas)
 
