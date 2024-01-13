@@ -7,6 +7,14 @@ output:
     keep_md: true
 ---
 
+# Introducción
+
+Esta actividad evaluable se centra en la aplicación de la ciencia de datos para resolver cuestiones de seguridad informática. 
+
+La primera parte del trabajo requiere una comprensión clara de los diferentes tipos de preguntas en ciencia de datos y cómo estas guían el enfoque del análisis. La segunda parte pone a prueba la habilidad para aplicar técnicas de análisis de datos en un conjunto de registros HTTP, utilizando R para cargar datos, calcular estadísticas, identificar patrones y comunicar resultados de manera efectiva.
+
+Este informe documenta el proceso seguido y los hallazgos obtenidos, reflejando la capacidad de aplicar conocimientos teóricos en un contexto práctico.
+
 ## Data Science
 
 ### Pregunta 1: Clasificación de preguntas
@@ -29,14 +37,13 @@ output:
 
 **Inferencial**: Se pretende generalizar los datos a una muestra mayor, en este ejemplo, se busca identificar si un usuario puede ser asignado a un grupo basado en su historial de compras, obteniendo así una muestra mayor.
 
-
 ### Pregunta 2: Considera el siguiente escenario:
 
 Sabemos que un usuario de nuestra red empresarial ha estado usando esta para fines no relacionados con el trabajo, como por ejemplo tener un servicio web no autorizado abierto a la red (otros usuarios tienen servicios web activados y autorizados). No queremos tener que rastrear los puertos de cada PC, y sabemos que la actividad puede haber cesado. Pero podemos acceder a los registros de conexiones TCP de cada máquina de cada trabajador (hacia donde abre conexión un PC concreto). Sabemos que nuestros clientes se conectan desde lugares remotos de forma legítima, como parte de nuestro negocio, y que un trabajador puede haber habilitado temporalmente servicios de prueba. Nuestro objetivo es reducir lo posible la lista de posibles culpables, con tal de explicarles que por favor no expongan nuestros sistemas sin permiso de los operadores o la dirección.
 
 Para abordar el escenario propuesto mediante Data Science, se seguiría un proceso estructurado que comprende la obtención y tratamiento de datos, análisis exploratorio, identificación de patrones, visualización y comunicación de resultados. A continuación se detallan los pasos del proceso de forma concisa y en tercera persona:
 
-### 1. Plantear las preguntas y 
+### 1. Plantear las preguntas y
 
 ### 2. Obtención de Datos
 
@@ -57,7 +64,6 @@ Para encontrar pistas sobre los servicios web no autorizados, se aplicarían mé
 Para hacer más fácil la interpretación de los datos, se crearían gráficos como mapas de calor o gráficos de red. Estas visualizaciones ayudarían a ver mejor los patrones y a explicar los hallazgos a otras personas.
 
 Al final, se prepararía un informe o una presentación con los resultados del análisis. Se usarían las visualizaciones para hacer que la información sea más accesible y se explicaría lo que se encontró de manera clara y sencilla.
-
 
 ##2. Introducción a R
 
@@ -119,7 +125,6 @@ num_of_gets <- hour_counts[hour_with_most_gets]
 paste("La hora con mayor volumen de peticiones GET es: ", hour_with_most_gets_name, "horas, con ", num_of_gets, "peticiones a esa hora")
 ```
 
-
 ###Pregunta 4: De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?
 
 ```{r bytes-txt-edu}
@@ -149,4 +154,3 @@ num_peticiones_no_http <- sum(data$Protocolo != "HTTP/0.2\"")
 
 paste("Total de peticiones que no son con el protocolo HTTP/0.2:", num_peticiones_no_http)
 ```
-
