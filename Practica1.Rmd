@@ -9,7 +9,7 @@ output:
 
 # Introducción
 
-Esta actividad evaluable se centra en la aplicación de la ciencia de datos para resolver cuestiones de seguridad informática. 
+Esta actividad evaluable se centra en la aplicación de la ciencia de datos para resolver cuestiones de seguridad informática.
 
 La primera parte del trabajo requiere una comprensión clara de los diferentes tipos de preguntas en ciencia de datos y cómo estas guían el enfoque del análisis. La segunda parte pone a prueba la habilidad para aplicar técnicas de análisis de datos en un conjunto de registros HTTP, utilizando R para cargar datos, calcular estadísticas, identificar patrones y comunicar resultados de manera efectiva.
 
@@ -65,9 +65,25 @@ Para hacer más fácil la interpretación de los datos, se crearían gráficos c
 
 Al final, se prepararía un informe o una presentación con los resultados del análisis. Se usarían las visualizaciones para hacer que la información sea más accesible y se explicaría lo que se encontró de manera clara y sencilla.
 
-##2. Introducción a R
+## 2. Introducción a R
 
-###Pregunta 1: Una vez cargado el Dataset a analizar, comprobando que se cargan las IPs, el Timestamp, la Petición (Tipo, URL y Protocolo), Código de respuesta, y Bytes de reply. Para importar el data frame usando el delimitador espacio
+Como comentamos anteriormente la segunda parte de este informe, se centra en el análisis práctico de un conjunto de datos utilizando R.
+
+El conjunto de datos elegido para este análisis contiene registros de peticiones HTTP, y la tarea consiste en importar y manipular este dataset para responder a preguntas específicas sobre el tráfico de un servidor web. La selección y limpieza de los datos es esencial para garantizar la precisión de nuestro análisis, por lo que previamente a empezar a trabajar prestamos especial atención a la estructura de los datos y a cómo estos pueden ser transformados y analizados eficazmente.
+
+**Fragmento Dataset:**
+
+```         
+141.243.1.172 [29:23:53:25] "GET /Software.html HTTP/1.0" 200 1497
+query2.lycos.cs.cmu.edu [29:23:53:36] "GET /Consumer.html HTTP/1.0" 200 1325
+tanuki.twics.com [29:23:53:53] "GET /News.html HTTP/1.0" 200 1014
+wpbfl2-45.gate.net [29:23:54:15] "GET / HTTP/1.0" 200 4889
+wpbfl2-45.gate.net [29:23:54:16] "GET /icons/circle_logo_small.gif HTTP/1.0" 200 2624
+wpbfl2-45.gate.net [29:23:54:18] "GET /logos/small_gopher.gif HTTP/1.0" 200 935
+140.112.68.165 [29:23:54:19] "GET /logos/us-flag.gif HTTP/1.0" 200 2788
+```
+
+### Pregunta 1: Una vez cargado el Dataset a analizar, comprobando que se cargan las IPs, el Timestamp, la Petición (Tipo, URL y Protocolo), Código de respuesta, y Bytes de reply. Responde a las preguntas númeradas a continuación:
 
 ```{r dataset}
 library(readr)
@@ -99,7 +115,7 @@ mean_bytes <- mean(data$Bytes, na.rm = TRUE)
 paste("El valor medio de la columna Bytes es:", mean_bytes)
 ```
 
-###Pregunta 2:De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?
+### Pregunta 2:De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?
 
 ```{r ips_educativas}
 #Buscamos cadenas que acaben en .edu
@@ -108,7 +124,7 @@ ips_educativas <- sum(str_detect(data$IP, "\\.edu$"))
 paste("El número de dominios educativos identificados son ", ips_educativas)
 ```
 
-###Pregunta 3:De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?
+### Pregunta 3:De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?
 
 ```{r hora-mayor-volumen}
 #Creamos una columna que solo contiene la hora de la peticion
@@ -125,7 +141,7 @@ num_of_gets <- hour_counts[hour_with_most_gets]
 paste("La hora con mayor volumen de peticiones GET es: ", hour_with_most_gets_name, "horas, con ", num_of_gets, "peticiones a esa hora")
 ```
 
-###Pregunta 4: De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?
+### Pregunta 4: De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?
 
 ```{r bytes-txt-edu}
 data$Bytes <- as.numeric(data$Bytes)
@@ -137,7 +153,7 @@ total_bytes_txt_edu <- sum(edu_requests$Bytes, na.rm = TRUE)
 paste("Total de bytes transmitidos en peticiones .txt por .edu:", total_bytes_txt_edu)
 ```
 
-###Pregunta 5: Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?
+### Pregunta 5: Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?
 
 ```{r num-peticiones-slash}
 #Buscamos las URL que coinciden con /
@@ -146,7 +162,7 @@ num_peticiones_slash <- sum(data$URL == "/", na.rm = TRUE)
 paste("Total de peticiones a la URL '/':", num_peticiones_slash)
 ```
 
-###Pregunta 6: Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"?
+### Pregunta 6: Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"?
 
 ```{r num-peticiones-no-https2.0}
 #Buscamos las peticiones que no usan el protocolo HTTP0.2
