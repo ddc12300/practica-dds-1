@@ -33,29 +33,26 @@ Sabemos que un usuario de nuestra red empresarial ha estado usando esta para fin
 
 ### 1. Plantear las preguntas
 
-El primer paso para analizar los datos seria plantear la pregunta. En este caso se podria plantear la siguiente pregunta: Dado el acceso a poder visualizar todas la connexiones TCP de los usuarios de nuestra red empresarial y sabiendo cuales son los servicios web autorizados para poder tener abiertos en la red, se pretende reducir al máximo el número de posibles usuarios que han tenido abiertos servicios no autorizados en la red.
+El primer paso para analizar los datos seria plantear la pregunta. En este caso se podria plantear la siguiente pregunta: Dado el acceso a poder visualizar todas la connexiones TCP de los usuarios de nuestra red empresarial y sabiendo cuales son los servicios web autorizados para poder tener abiertos en la red, se pretende reducir al máximo el número de posibles usuarios que han tenido  abiertos servicios no autorizados en la red.
 
-### 2. Obtención de Datos
 
-Para obtener datos para entontrar respuesta a la pregunta planteada
+### 2. Obtención de datos
 
-Como punto de partida, se usarían los registros de conexiones TCP de las computadoras de los empleados. Estos registros incluirían detalles como las direcciones IP, los puertos y las marcas de tiempo, que son clave para el análisis.
+Para obtener datos para entontrar respuesta a la pregunta planteada empezaremos por analizar todas las peticiones TCP que tenemos registradas de los diferentes usuarios de la red empresarial. De las peticiones podremos obtener las IPs de los usurios y las IP de los servicios abiertos. Además podremos ver a que puertos se conectan y las horas a las que se generan dichas peticiones, de manera que también podriamos identificar comportamientos poco usuales.
 
-### 3. Tratamiento de Datos y Análisis Exploratorio
+### 3. Exploración de los datos
 
-Antes de analizar los datos, sería necesario limpiarlos para quitar cualquier información irrelevante o incorrecta. Esto implicaría eliminar datos duplicados y normalizar los formatos de las direcciones IP y los puertos.
+Una vez tenemos los datos necesitamos identificar datos duplicados para eliminarlos ya que con una muestra de servicio abierto no autorizado por un usuario ya seria suficiente, también tendriamos que eliminar todos los datos de servicio autorizados en la red empresarial y, finalmente, querriamos normalizar los datos para solo tener los datos útiles para responder la pregunta planteada.
+A continuación se podrían visualizar los datos para ver que está pasando y si se pude identificar patrones de comportamiento sospechoso por parte de algunos usuarios.
 
-El siguiente paso sería echar un vistazo general a los datos para entender qué está pasando. Se calcularían algunas estadísticas básicas y se observaría cómo se distribuyen las conexiones a lo largo del tiempo para detectar cualquier cosa fuera de lo común.
+### 4. Modelar los datos
 
-### 4. Modelar e Identificación de Patrones
-
+Para poder identificar que está pasando, se podrian usar técnicas para agrupar datos de un mismo usuario y así poder identificar que patrón de comportamiento poco según sigue. Otra opción seria separar los datos por servicios abiertos y fijarnos en las horas a las que se realizan esas connexiones.
 Para encontrar pistas sobre los servicios web no autorizados, se aplicarían métodos como el agrupamiento de datos (clustering) y la detección de anomalías. La idea sería buscar cualquier patrón de conexión que no encaje con lo que se espera de un uso normal.
 
 ### 5. Visualización de Datos y Comunicación de Resultados
 
-Para hacer más fácil la interpretación de los datos, se crearían gráficos como mapas de calor o gráficos de red. Estas visualizaciones ayudarían a ver mejor los patrones y a explicar los hallazgos a otras personas.
-
-Al final, se prepararía un informe o una presentación con los resultados del análisis. Se usarían las visualizaciones para hacer que la información sea más accesible y se explicaría lo que se encontró de manera clara y sencilla.
+En este último paso, para hacer más fácil la interpretación de los datos, se crearían gráficos como mapas de calor o gráficos de barras. Estas visualizaciones ayudarían a ver mejor los patrones y a explicar los resultados encontrados. Finalmente se prepararía un informe con los resultados del análisis incluyendo gráficos para que la información sea más accesible y explicando las conclusiones del estudio utilizando el lenguaje adecuado en función del público al que va dirigido.
 
 ## 2. Introducción a R
 
