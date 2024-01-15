@@ -175,7 +175,7 @@ dominio_counts <- as.data.frame(table(data$tipo_dominio))
 ggplot(dominio_counts, aes(x = Var1, y = Freq)) +
   geom_bar(stat = "identity") +
   geom_text(aes(label = Freq), vjust = -0.5) +
-  labs(x = "Tipo de Dominio", y = "Conteo de IPs", title = "Peticiones de IPs Educativas vs Otros Dominios")
+  labs(x = "Tipo de Dominio", y = "Número de IPs", title = "Peticiones de IPs Educativas vs Otros Dominios")
 ```
 
 ### Pregunta 3: De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?
