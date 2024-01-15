@@ -7,19 +7,10 @@ output:
     keep_md: true
 ---
 
-# Introducción
-
-Esta actividad evaluable se centra en la aplicación de la ciencia de datos para resolver cuestiones de seguridad informática.
-
-La primera parte del trabajo requiere una comprensión clara de los diferentes tipos de preguntas en ciencia de datos y cómo estas guían el enfoque del análisis. La segunda parte pone a prueba la habilidad para aplicar técnicas de análisis de datos en un conjunto de registros HTTP, utilizando R para cargar datos, calcular estadísticas, identificar patrones y comunicar resultados de manera efectiva.
-
-Este informe documenta el proceso seguido y los hallazgos obtenidos, reflejando la capacidad de aplicar conocimientos teóricos en un contexto práctico.
-
 ## Data Science
 
 ### Pregunta 1: Clasificación de preguntas
 
-**Preguntas proporcionadas:**
 
 1.  Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
 
@@ -41,11 +32,16 @@ Este informe documenta el proceso seguido y los hallazgos obtenidos, reflejando 
 
 Sabemos que un usuario de nuestra red empresarial ha estado usando esta para fines no relacionados con el trabajo, como por ejemplo tener un servicio web no autorizado abierto a la red (otros usuarios tienen servicios web activados y autorizados). No queremos tener que rastrear los puertos de cada PC, y sabemos que la actividad puede haber cesado. Pero podemos acceder a los registros de conexiones TCP de cada máquina de cada trabajador (hacia donde abre conexión un PC concreto). Sabemos que nuestros clientes se conectan desde lugares remotos de forma legítima, como parte de nuestro negocio, y que un trabajador puede haber habilitado temporalmente servicios de prueba. Nuestro objetivo es reducir lo posible la lista de posibles culpables, con tal de explicarles que por favor no expongan nuestros sistemas sin permiso de los operadores o la dirección.
 
-Para abordar el escenario propuesto mediante Data Science, se seguiría un proceso estructurado que comprende la obtención y tratamiento de datos, análisis exploratorio, identificación de patrones, visualización y comunicación de resultados. A continuación se detallan los pasos del proceso de forma concisa y en tercera persona:
 
-### 1. Plantear las preguntas y
+
+### 1. Plantear las preguntas
+
+El primer paso para analizar los datos seria plantear la pregunta. En este caso se podria plantear la siguiente pregunta: Dado el acceso a poder visualizar todas la connexiones TCP de los usuarios de nuestra red empresarial y sabiendo cuales son los servicios web autorizados para poder tener abiertos en la red, se pretende reducir al máximo el número de posibles usuarios que han tenido  abiertos servicios no autorizados en la red.
+
 
 ### 2. Obtención de Datos
+
+Para obtener datos para entontrar respuesta a la pregunta planteada 
 
 Como punto de partida, se usarían los registros de conexiones TCP de las computadoras de los empleados. Estos registros incluirían detalles como las direcciones IP, los puertos y las marcas de tiempo, que son clave para el análisis.
 
@@ -129,6 +125,8 @@ paste("El valor medio de la columna Bytes es:", mean_bytes)
 ### Pregunta 2:De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?
 
 ```{r ips_educativas}
+#Para poder utilizar la función str_detect() necesitamos importar la libreria stringr
+library(stringr)
 #Buscamos cadenas que acaben en .edu
 ips_educativas <- sum(str_detect(data$IP, "\\.edu$"))
 
