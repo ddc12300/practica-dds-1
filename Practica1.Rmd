@@ -162,7 +162,7 @@ paste("El número de dominios educativos identificados son ", ips_educativas)
 
 Este código cuenta las direcciones IP que contienen ".edu" y, por lo tanto, es probable que pertenezcan a instituciones educativas. Al ejecutarlo, se muestra en la consola el número total de estas IPs educativas, proporcionando una medida de la participación de este tipo de organizaciones en el tráfico del servidor web.
 
-```{r ips_educativas}
+```{r ips_educativas-plot}
 library(ggplot2)
 
 # Creamos una nueva columna en el dataframe que clasifique las IPs como 'Dominios .edu' o 'Otros dominios'
@@ -212,7 +212,7 @@ El código comienza extrayendo la hora de cada timestamp en el conjunto de datos
 
 Al ejecutar este código, se mostrará en la consola la hora específica con el mayor volumen de peticiones "GET" y la cantidad de peticiones recibidas durante esa hora, proporcionando una visión clara de cuándo el servidor experimenta su carga máxima en términos de peticiones "GET".
 
-```{r hora-mayor-volumen}
+```{r hora-mayor-volumen-plot}
 library(ggplot2)
 
 get_requests$Hour <- as.factor(get_requests$Hour)
@@ -240,7 +240,7 @@ total_bytes_txt_edu <- sum(edu_requests$Bytes, na.rm = TRUE)
 paste("Total de bytes transmitidos en peticiones .txt por .edu:", total_bytes_txt_edu)
 ```
 
-```{r bytes-txt-edu}
+```{r bytes-txt-edu-plot}
 library(ggplot2)
 library(dplyr)
 library(stringr)
