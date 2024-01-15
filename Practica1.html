@@ -361,7 +361,6 @@ Security</h1>
 <h2>Data Science</h2>
 <div id="pregunta-1-clasificación-de-preguntas" class="section level3">
 <h3>Pregunta 1: Clasificación de preguntas</h3>
-<p><strong>Preguntas proporcionadas:</strong></p>
 <ol style="list-style-type: decimal">
 <li>Dado un registro de vehículos que circulan por una autopista,
 disponemos de su marca y modelo, país de matriculación, y tipo de
@@ -369,9 +368,10 @@ vehículo (por número de ruedas). Con tal de ajustar precios de los
 peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más
 frecuente? ¿De qué países tenemos más vehículos?</li>
 </ol>
-<p><strong>Descriptiva</strong>: Se busca describir el conjunto de datos
-en términos de la cantidad de vehículos por tipo, el tipo más frecuente
-y la procedencia de los vehículos.</p>
+<p><strong>Descriptiva</strong>: Se basa en identificar como es el
+conjunto de datos, en este caso se quieren clasificar los vehículos por
+tipo, el tipo más frecuente y la procedencia de los vehículos para
+ajustar el precio de los peajes.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Dado un registro de visualizaciones de un servicio de
 video-on-demand, donde disponemos de los datos del usuario, de la
@@ -379,9 +379,10 @@ película seleccionada, fecha de visualización y categoría de la
 película, queremos saber ¿Hay alguna preferencia en cuanto a género
 literario según los usuarios y su rango de edad?</li>
 </ol>
-<p><strong>Exploratoria</strong>: Se quiere explorar si hay una
-preferencia de género literario según los usuarios y su rango de
-edad.</p>
+<p><strong>Exploratoria</strong>: Se quiere buscar la relación que
+existe entre los datos, en este caso de pretende buscar la relación
+entre el género literario de la pelicula y el rango de edad de los
+usuarios.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Dado un registro de peticiones a un sitio web, vemos que las
 peticiones que provienen de una red de telefonía concreta acostumbran a
@@ -390,9 +391,9 @@ si en el futuro, los próximos mensajes de esa red seguirán dando
 problemas? ¿Hemos notado el mismo efecto en otras redes de
 telefonía?</li>
 </ol>
-<p><strong>Predictiva</strong>: Se intenta predecir si las peticiones
-futuras de una red de telefonía específica continuarán causando
-errores.</p>
+<p><strong>Predictiva</strong>: Se quieren predecir valores no vistos,
+en este caso, se intenta predecir si las peticiones futuras de una red
+de telefonía específica continuarán causando errores.</p>
 <ol start="4" style="list-style-type: decimal">
 <li>Dado los registros de usuarios de un servicio de compras por
 internet, los usuarios pueden agruparse por preferencias de productos
@@ -400,8 +401,227 @@ comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y
 según su historial, pueda ser directamente asignado a un o diversos
 grupos?</li>
 </ol>
-<p><strong>Inferencial</strong>: Se busca inferir si un usuario puede
-ser asignado a un grupo basado en su historial de compras.</p>
+<p><strong>Inferencial</strong>: Se pretende generalizar los datos a una
+muestra mayor, en este ejemplo, se busca identificar si un usuario puede
+ser asignado a un grupo basado en su historial de compras, obteniendo
+así una muestra mayor.</p>
+</div>
+<div id="pregunta-2-considera-el-siguiente-escenario" class="section level3">
+<h3>Pregunta 2: Considera el siguiente escenario:</h3>
+<p>Sabemos que un usuario de nuestra red empresarial ha estado usando
+esta para fines no relacionados con el trabajo, como por ejemplo tener
+un servicio web no autorizado abierto a la red (otros usuarios tienen
+servicios web activados y autorizados). No queremos tener que rastrear
+los puertos de cada PC, y sabemos que la actividad puede haber cesado.
+Pero podemos acceder a los registros de conexiones TCP de cada máquina
+de cada trabajador (hacia donde abre conexión un PC concreto). Sabemos
+que nuestros clientes se conectan desde lugares remotos de forma
+legítima, como parte de nuestro negocio, y que un trabajador puede haber
+habilitado temporalmente servicios de prueba. Nuestro objetivo es
+reducir lo posible la lista de posibles culpables, con tal de
+explicarles que por favor no expongan nuestros sistemas sin permiso de
+los operadores o la dirección.</p>
+</div>
+<div id="plantear-las-preguntas" class="section level3">
+<h3>1. Plantear las preguntas</h3>
+<p>El primer paso para analizar los datos seria plantear la pregunta. En
+este caso se podria plantear la siguiente pregunta: Dado el acceso a
+poder visualizar todas la connexiones TCP de los usuarios de nuestra red
+empresarial y sabiendo cuales son los servicios web autorizados para
+poder tener abiertos en la red, se pretende reducir al máximo el número
+de posibles usuarios que han tenido abiertos servicios no autorizados en
+la red.</p>
+</div>
+<div id="obtención-de-datos" class="section level3">
+<h3>2. Obtención de Datos</h3>
+<p>Para obtener datos para entontrar respuesta a la pregunta
+planteada</p>
+<p>Como punto de partida, se usarían los registros de conexiones TCP de
+las computadoras de los empleados. Estos registros incluirían detalles
+como las direcciones IP, los puertos y las marcas de tiempo, que son
+clave para el análisis.</p>
+</div>
+<div id="tratamiento-de-datos-y-análisis-exploratorio" class="section level3">
+<h3>3. Tratamiento de Datos y Análisis Exploratorio</h3>
+<p>Antes de analizar los datos, sería necesario limpiarlos para quitar
+cualquier información irrelevante o incorrecta. Esto implicaría eliminar
+datos duplicados y normalizar los formatos de las direcciones IP y los
+puertos.</p>
+<p>El siguiente paso sería echar un vistazo general a los datos para
+entender qué está pasando. Se calcularían algunas estadísticas básicas y
+se observaría cómo se distribuyen las conexiones a lo largo del tiempo
+para detectar cualquier cosa fuera de lo común.</p>
+</div>
+<div id="modelar-e-identificación-de-patrones" class="section level3">
+<h3>4. Modelar e Identificación de Patrones</h3>
+<p>Para encontrar pistas sobre los servicios web no autorizados, se
+aplicarían métodos como el agrupamiento de datos (clustering) y la
+detección de anomalías. La idea sería buscar cualquier patrón de
+conexión que no encaje con lo que se espera de un uso normal.</p>
+</div>
+<div id="visualización-de-datos-y-comunicación-de-resultados" class="section level3">
+<h3>5. Visualización de Datos y Comunicación de Resultados</h3>
+<p>Para hacer más fácil la interpretación de los datos, se crearían
+gráficos como mapas de calor o gráficos de red. Estas visualizaciones
+ayudarían a ver mejor los patrones y a explicar los hallazgos a otras
+personas.</p>
+<p>Al final, se prepararía un informe o una presentación con los
+resultados del análisis. Se usarían las visualizaciones para hacer que
+la información sea más accesible y se explicaría lo que se encontró de
+manera clara y sencilla.</p>
+</div>
+</div>
+<div id="introducción-a-r" class="section level2">
+<h2>2. Introducción a R</h2>
+<p>Como comentamos anteriormente la segunda parte de este informe, se
+centra en el análisis práctico de un conjunto de datos utilizando R.</p>
+<p>El conjunto de datos elegido para este análisis contiene registros de
+peticiones HTTP, y la tarea consiste en importar y manipular este
+dataset para responder a preguntas específicas sobre el tráfico de un
+servidor web. La selección y limpieza de los datos es esencial para
+garantizar la precisión de nuestro análisis, por lo que previamente a
+empezar a trabajar prestamos especial atención a la estructura de los
+datos y a cómo estos pueden ser transformados y analizados
+eficazmente.</p>
+<p><strong>Fragmento Dataset:</strong></p>
+<pre><code>141.243.1.172 [29:23:53:25] &quot;GET /Software.html HTTP/1.0&quot; 200 1497
+query2.lycos.cs.cmu.edu [29:23:53:36] &quot;GET /Consumer.html HTTP/1.0&quot; 200 1325
+tanuki.twics.com [29:23:53:53] &quot;GET /News.html HTTP/1.0&quot; 200 1014
+wpbfl2-45.gate.net [29:23:54:15] &quot;GET / HTTP/1.0&quot; 200 4889
+wpbfl2-45.gate.net [29:23:54:16] &quot;GET /icons/circle_logo_small.gif HTTP/1.0&quot; 200 2624
+wpbfl2-45.gate.net [29:23:54:18] &quot;GET /logos/small_gopher.gif HTTP/1.0&quot; 200 935
+140.112.68.165 [29:23:54:19] &quot;GET /logos/us-flag.gif HTTP/1.0&quot; 200 2788</code></pre>
+<div id="pregunta-1-una-vez-cargado-el-dataset-a-analizar-comprobando-que-se-cargan-las-ips-el-timestamp-la-petición-tipo-url-y-protocolo-código-de-respuesta-y-bytes-de-reply.-responde-a-las-preguntas-númeradas-a-continuación" class="section level3">
+<h3>Pregunta 1: Una vez cargado el Dataset a analizar, comprobando que
+se cargan las IPs, el Timestamp, la Petición (Tipo, URL y Protocolo),
+Código de respuesta, y Bytes de reply. Responde a las preguntas
+númeradas a continuación:</h3>
+<p>Utilizando la librería <code>readr</code>, cargamos el dataset en
+nuestro entorno de trabajo en R. En concreto, utilizamos la función
+<code>read_table</code>, que está optimizada para leer archivos grandes
+al interpretar automáticamente que cada espacio en blanco es un
+separador entre columnas. Esto nos facilita mucho el trabajo en los
+siguientes ejercicios.</p>
+<p>La función es invocada de la siguiente manera:</p>
+<pre class="r"><code>library(readr)
+data &lt;- read_table(&quot;epa-http.csv&quot;, col_names = FALSE)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   X1 = col_character(),
+##   X2 = col_character(),
+##   X3 = col_character(),
+##   X4 = col_character(),
+##   X5 = col_character(),
+##   X6 = col_double(),
+##   X7 = col_character()
+## )</code></pre>
+<pre><code>## Warning: 21 parsing failures.
+##  row col  expected    actual           file
+## 7527  -- 7 columns 6 columns &#39;epa-http.csv&#39;
+## 7528  -- 7 columns 6 columns &#39;epa-http.csv&#39;
+## 7529  -- 7 columns 6 columns &#39;epa-http.csv&#39;
+## 7549  -- 7 columns 6 columns &#39;epa-http.csv&#39;
+## 7550  -- 7 columns 6 columns &#39;epa-http.csv&#39;
+## .... ... ......... ......... ..............
+## See problems(...) for more details.</code></pre>
+<p>Aquí, <code>read_table</code> se aplica al archivo “epa-http.csv”, y
+el argumento <code>col_names = FALSE</code> indica que el archivo no
+contiene una fila de cabecera con nombres de columnas. Como resultado, R
+lee el archivo y asume que cada columna está separada por espacios,
+creando un dataframe donde cada columna corresponde a un campo del
+archivo original.</p>
+<p>Una vez cargado el dataframe, procedemos a asignar nombres
+significativos a sus columnas para facilitar el análisis posterior:</p>
+<pre class="r"><code>colnames(data) &lt;- c(&quot;IP&quot;, &quot;Timestamp&quot;, &quot;Tipo&quot;, &quot;URL&quot;, &quot;Protocolo&quot;, &quot;Respuesta&quot;, &quot;Bytes&quot;)</code></pre>
+<p>Esto nos permite referirnos a cada columna por un nombre legible que
+describe los datos que contiene, mejorando la claridad y mantenibilidad
+del código en los pasos de análisis subsiguientes.</p>
+<ol style="list-style-type: decimal">
+<li>Cuales son las dimensiones del dataset cargado (número de filas y
+columnas)</li>
+</ol>
+<pre class="r"><code># Número de filas
+num_filas &lt;- nrow(data)
+paste(&quot;Número de filas:&quot;, num_filas)</code></pre>
+<pre><code>## [1] &quot;Número de filas: 47748&quot;</code></pre>
+<pre class="r"><code># Número de columnas
+num_columnas &lt;- ncol(data)
+paste(&quot;Número de columnas:&quot;, num_columnas)</code></pre>
+<pre><code>## [1] &quot;Número de columnas: 7&quot;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Valor medio de la columna Bytes</li>
+</ol>
+<pre class="r"><code># Calculamos el valor medio de la columna Bytes sin tener en cuenta los datos n/a
+data$Bytes &lt;- as.numeric(data$Bytes)</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre class="r"><code>mean_bytes &lt;- mean(data$Bytes, na.rm = TRUE)
+
+paste(&quot;El valor medio de la columna Bytes es:&quot;, mean_bytes)</code></pre>
+<pre><code>## [1] &quot;El valor medio de la columna Bytes es: 7352.3349128887&quot;</code></pre>
+</div>
+<div id="pregunta-2de-las-diferentes-ips-de-origen-accediendo-al-servidor-cuantas-pertenecen-a-una-ip-claramente-educativa-que-contenga-.edu" class="section level3">
+<h3>Pregunta 2:De las diferentes IPs de origen accediendo al servidor,
+¿cuantas pertenecen a una IP claramente educativa (que contenga
+“.edu”)?</h3>
+<pre class="r"><code>#Para poder utilizar la función str_detect() necesitamos importar la libreria stringr
+library(stringr)
+#Buscamos cadenas que acaben en .edu
+ips_educativas &lt;- sum(str_detect(data$IP, &quot;\\.edu$&quot;))
+
+paste(&quot;El número de dominios educativos identificados son &quot;, ips_educativas)</code></pre>
+<pre><code>## [1] &quot;El número de dominios educativos identificados son  6317&quot;</code></pre>
+</div>
+<div id="pregunta-3de-todas-las-peticiones-recibidas-por-el-servidor-cual-es-la-hora-en-la-que-hay-mayor-volumen-de-peticiones-http-de-tipo-get" class="section level3">
+<h3>Pregunta 3:De todas las peticiones recibidas por el servidor cual es
+la hora en la que hay mayor volumen de peticiones HTTP de tipo
+“GET”?</h3>
+<pre class="r"><code>#Creamos una columna que solo contiene la hora de la peticion
+data$Hour &lt;- str_extract(data$Timestamp, &quot;(?&lt;=:)[0-9]{2}(?=:)&quot;)
+
+
+get_requests &lt;- data[data$Tipo == &quot;\&quot;GET&quot;, ]
+hour_counts &lt;- table(get_requests$Hour)
+
+hour_with_most_gets &lt;- which.max(hour_counts)
+hour_with_most_gets_name &lt;- names(hour_with_most_gets)
+num_of_gets &lt;- hour_counts[hour_with_most_gets]
+
+paste(&quot;La hora con mayor volumen de peticiones GET es: &quot;, hour_with_most_gets_name, &quot;horas, con &quot;, num_of_gets, &quot;peticiones a esa hora&quot;)</code></pre>
+<pre><code>## [1] &quot;La hora con mayor volumen de peticiones GET es:  14 horas, con  4546 peticiones a esa hora&quot;</code></pre>
+</div>
+<div id="pregunta-4-de-las-peticiones-hechas-por-instituciones-educativas-.edu-cuantos-bytes-en-total-se-han-transmitido-en-peticiones-de-descarga-de-ficheros-de-texto-.txt" class="section level3">
+<h3>Pregunta 4: De las peticiones hechas por instituciones educativas
+(.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de
+descarga de ficheros de texto “.txt”?</h3>
+<pre class="r"><code>data$Bytes &lt;- as.numeric(data$Bytes)
+
+#Buscamos las peticiones que la IP acaba en .edu y la URL acaba en .txt
+edu_requests &lt;- data[str_detect(data$IP, &quot;\\.edu$&quot;) &amp; str_detect(data$URL, &quot;\\.txt$&quot;), ]
+total_bytes_txt_edu &lt;- sum(edu_requests$Bytes, na.rm = TRUE)
+
+paste(&quot;Total de bytes transmitidos en peticiones .txt por .edu:&quot;, total_bytes_txt_edu)</code></pre>
+<pre><code>## [1] &quot;Total de bytes transmitidos en peticiones .txt por .edu: 106806&quot;</code></pre>
+</div>
+<div id="pregunta-5-si-separamos-la-petición-en-3-partes-tipo-url-protocolo-usando-str_split-y-el-separador-espacio-cuantas-peticiones-buscan-directamente-la-url" class="section level3">
+<h3>Pregunta 5: Si separamos la petición en 3 partes (Tipo, URL,
+Protocolo), usando str_split y el separador ” ” (espacio), ¿cuantas
+peticiones buscan directamente la URL = “/”?</h3>
+<pre class="r"><code>#Buscamos las URL que coinciden con /
+num_peticiones_slash &lt;- sum(data$URL == &quot;/&quot;, na.rm = TRUE)
+
+paste(&quot;Total de peticiones a la URL &#39;/&#39;:&quot;, num_peticiones_slash)</code></pre>
+<pre><code>## [1] &quot;Total de peticiones a la URL &#39;/&#39;: 2382&quot;</code></pre>
+</div>
+<div id="pregunta-6-aprovechando-que-hemos-separado-la-petición-en-3-partes-tipo-url-protocolo-cuantas-peticiones-no-tienen-como-protocolo-http0.2" class="section level3">
+<h3>Pregunta 6: Aprovechando que hemos separado la petición en 3 partes
+(Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo
+“HTTP/0.2”?</h3>
+<pre class="r"><code>#Buscamos las peticiones que no usan el protocolo HTTP0.2
+num_peticiones_no_http &lt;- sum(data$Protocolo != &quot;HTTP/0.2\&quot;&quot;)
+
+paste(&quot;Total de peticiones que no son con el protocolo HTTP/0.2:&quot;, num_peticiones_no_http)</code></pre>
+<pre><code>## [1] &quot;Total de peticiones que no son con el protocolo HTTP/0.2: 47747&quot;</code></pre>
 </div>
 </div>
 

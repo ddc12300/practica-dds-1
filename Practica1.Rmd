@@ -11,7 +11,6 @@ output:
 
 ### Pregunta 1: Clasificación de preguntas
 
-
 1.  Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
 
 **Descriptiva**: Se basa en identificar como es el conjunto de datos, en este caso se quieren clasificar los vehículos por tipo, el tipo más frecuente y la procedencia de los vehículos para ajustar el precio de los peajes.
@@ -32,16 +31,13 @@ output:
 
 Sabemos que un usuario de nuestra red empresarial ha estado usando esta para fines no relacionados con el trabajo, como por ejemplo tener un servicio web no autorizado abierto a la red (otros usuarios tienen servicios web activados y autorizados). No queremos tener que rastrear los puertos de cada PC, y sabemos que la actividad puede haber cesado. Pero podemos acceder a los registros de conexiones TCP de cada máquina de cada trabajador (hacia donde abre conexión un PC concreto). Sabemos que nuestros clientes se conectan desde lugares remotos de forma legítima, como parte de nuestro negocio, y que un trabajador puede haber habilitado temporalmente servicios de prueba. Nuestro objetivo es reducir lo posible la lista de posibles culpables, con tal de explicarles que por favor no expongan nuestros sistemas sin permiso de los operadores o la dirección.
 
-
-
 ### 1. Plantear las preguntas
 
-El primer paso para analizar los datos seria plantear la pregunta. En este caso se podria plantear la siguiente pregunta: Dado el acceso a poder visualizar todas la connexiones TCP de los usuarios de nuestra red empresarial y sabiendo cuales son los servicios web autorizados para poder tener abiertos en la red, se pretende reducir al máximo el número de posibles usuarios que han tenido  abiertos servicios no autorizados en la red.
-
+El primer paso para analizar los datos seria plantear la pregunta. En este caso se podria plantear la siguiente pregunta: Dado el acceso a poder visualizar todas la connexiones TCP de los usuarios de nuestra red empresarial y sabiendo cuales son los servicios web autorizados para poder tener abiertos en la red, se pretende reducir al máximo el número de posibles usuarios que han tenido abiertos servicios no autorizados en la red.
 
 ### 2. Obtención de Datos
 
-Para obtener datos para entontrar respuesta a la pregunta planteada 
+Para obtener datos para entontrar respuesta a la pregunta planteada
 
 Como punto de partida, se usarían los registros de conexiones TCP de las computadoras de los empleados. Estos registros incluirían detalles como las direcciones IP, los puertos y las marcas de tiempo, que son clave para el análisis.
 
@@ -102,67 +98,185 @@ Esto nos permite referirnos a cada columna por un nombre legible que describe lo
 
 1.  Cuales son las dimensiones del dataset cargado (número de filas y columnas)
 
-```{r dimensiones}
-# Número de filas
-num_filas <- nrow(data)
-paste("Número de filas:", num_filas)
+A continuación, abordaremos la primera pregunta sobre las dimensiones del conjunto de datos. Para ello, utilizaremos dos funciones de R que son esenciales para explorar la estructura de cualquier dataframe: `nrow()` y `ncol()`. La función `nrow()` devuelve el número total de filas, que representa la cantidad de registros individuales en el conjunto de datos. La función `ncol()` devuelve el número total de columnas, que indica la cantidad de atributos o variables que tenemos para cada registro.
 
-# Número de columnas
+El siguiente código nos proporcionará las dimensiones del dataframe `data`:
+
+```{r dimensiones}
+# Obtener el número de filas en el dataframe con nrow()
+num_filas <- nrow(data)
+# Crear un mensaje informativo con el número de filas usando paste()
+mensaje_filas <- paste("Número de filas:", num_filas)
+
+# Obtener el número de columnas en el dataframe con ncol()
 num_columnas <- ncol(data)
-paste("Número de columnas:", num_columnas)
+# Crear un mensaje informativo con el número de columnas usando paste()
+mensaje_columnas <- paste("Número de columnas:", num_columnas)
+
+# Imprimir los mensajes para mostrar las dimensiones del dataframe
+print(mensaje_filas)
+print(mensaje_columnas)
 ```
+
+Al ejecutar este código, se imprimirán en la consola dos mensajes que indican el número de filas y columnas del dataframe `data`.
 
 2.  Valor medio de la columna Bytes
 
+Continuamos nuestro análisis explorando la columna "Bytes" del dataframe `data`, que representa el tamaño de los datos enviados en respuesta a cada petición HTTP. El objetivo es determinar el valor medio de esta columna para obtener una comprensión del tamaño promedio de respuesta del servidor web.
+
+Para calcular el valor medio, seguimos estos pasos:
+
 ```{r valor-medio-bytes}
-# Calculamos el valor medio de la columna Bytes sin tener en cuenta los datos n/a
+# Primero, nos aseguramos de que los datos en la columna "Bytes" sean numéricos.
+# La función as.numeric() es utilizada para convertir los valores de la columna "Bytes" de texto a números.
 data$Bytes <- as.numeric(data$Bytes)
+
+# Luego, calculamos el valor medio utilizando la función mean().
+# El argumento na.rm = TRUE es crucial, ya que instruye a la función para omitir cualquier valor NA durante el cálculo.
+# Los valores NA pueden surgir por registros incompletos o errores en los datos, y su exclusión es importante para obtener una medida precisa.
 mean_bytes <- mean(data$Bytes, na.rm = TRUE)
 
+# Finalmente, construimos un mensaje informativo que reporta el valor medio calculado.
+# La función paste() concatena el mensaje de texto con el valor medio para una presentación clara.
 paste("El valor medio de la columna Bytes es:", mean_bytes)
 ```
 
-### Pregunta 2:De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?
+Al ejecutar este fragmento de código, se imprimen en la consola los resultados del cálculo, proporcionándonos el tamaño promedio de los datos enviados en respuesta a las peticiones HTTP. Este valor es un indicador útil del volumen de tráfico que maneja el servidor web y puede ser relevante para entender la carga del servidor y la experiencia del usuario.
+
+### Pregunta 2: De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?
+
+Procedemos ahora a responder la segunda pregunta, que se centra en identificar cuántas IPs de origen que acceden al servidor pertenecen a dominios educativos, reconocibles por la terminación ".edu" en su dirección.
+
+Para realizar esta tarea, utilizamos las siguientes instrucciones:
 
 ```{r ips_educativas}
-#Para poder utilizar la función str_detect() necesitamos importar la libreria stringr
+# Primero, cargamos la librería stringr, que proporciona funciones poderosas para el manejo de texto.
 library(stringr)
-#Buscamos cadenas que acaben en .edu
-ips_educativas <- sum(str_detect(data$IP, "\\.edu$"))
 
+# Utilizamos la función str_detect() de la librería stringr para buscar en la columna "IP" aquellas cadenas que terminan en ".edu".
+# La expresión regular "\\.edu$" es utilizada para identificar este patrón, donde "\\" escapa el punto (para que se interprete literalmente)
+# y "$" indica el final de la cadena.
+ips_educativas <- sum(str_detect(data$IP, "\\.edu"))
+
+# Finalmente, construimos un mensaje informativo que reporta el número de IPs educativas identificadas.
+# La función paste() concatena una cadena de texto fija con el conteo resultante para presentar la información de manera clara.
 paste("El número de dominios educativos identificados son ", ips_educativas)
 ```
 
-### Pregunta 3:De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?
+Este código cuenta las direcciones IP que contienen ".edu" y, por lo tanto, es probable que pertenezcan a instituciones educativas. Al ejecutarlo, se muestra en la consola el número total de estas IPs educativas, proporcionando una medida de la participación de este tipo de organizaciones en el tráfico del servidor web.
+
+```{r ips_educativas}
+library(ggplot2)
+
+# Creamos una nueva columna en el dataframe que clasifique las IPs como 'Dominios .edu' o 'Otros dominios'
+data$tipo_dominio <- ifelse(str_detect(data$IP, "\\.edu"), "Dominios .edu", "Otros dominios")
+
+# Calculamos el recuento de peticiones para cada tipo de dominio
+dominio_counts <- as.data.frame(table(data$tipo_dominio))
+
+# Gráfico de barras de IPs educativas vs no educativas con recuentos exactos
+ggplot(dominio_counts, aes(x = Var1, y = Freq)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Freq), vjust = -0.5) +
+  labs(x = "Tipo de Dominio", y = "Conteo de IPs", title = "Peticiones de IPs Educativas vs Otros Dominios")
+```
+
+### Pregunta 3: De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?
+
+Para responder a la tercera pregunta, estamos interesados en determinar la hora del día en que el servidor recibe la mayor cantidad de peticiones HTTP de tipo "GET". El siguiente código realiza los pasos necesarios para identificar este pico de tráfico:
 
 ```{r hora-mayor-volumen}
-#Creamos una columna que solo contiene la hora de la peticion
+# Extraemos la hora de la columna "Timestamp" usando expresiones regulares y la función str_extract().
+# La expresión regular "(?<=:)[0-9]{2}(?=:)" busca dos dígitos que estén entre dos puntos (":"),
+# que representan la hora en el timestamp.
 data$Hour <- str_extract(data$Timestamp, "(?<=:)[0-9]{2}(?=:)")
 
-
+# Filtramos las peticiones para quedarnos solo con aquellas de tipo "GET".
+# Para ello, subconjuntamos el dataframe 'data' donde la columna "Tipo" es igual a "\"GET".
 get_requests <- data[data$Tipo == "\"GET", ]
+
+# Creamos una tabla de frecuencias de las peticiones GET por hora usando la función table().
 hour_counts <- table(get_requests$Hour)
 
+# Identificamos la hora con el mayor número de peticiones GET utilizando which.max(),
+# que devuelve la posición del mayor valor en hour_counts.
 hour_with_most_gets <- which.max(hour_counts)
+# Obtenemos el nombre de la hora correspondiente, que es la clave de la tabla de frecuencias.
 hour_with_most_gets_name <- names(hour_with_most_gets)
+# Extraemos el número de peticiones GET para la hora con el mayor volumen.
 num_of_gets <- hour_counts[hour_with_most_gets]
 
-paste("La hora con mayor volumen de peticiones GET es: ", hour_with_most_gets_name, "horas, con ", num_of_gets, "peticiones a esa hora")
+# Construimos un mensaje informativo que reporta la hora con el mayor volumen de peticiones GET
+# y el número de peticiones recibidas durante esa hora.
+paste("La hora con mayor volumen de peticiones GET es: ", hour_with_most_gets_name, " horas, con ", num_of_gets, " peticiones a esa hora")
+```
+
+El código comienza extrayendo la hora de cada timestamp en el conjunto de datos y creando una nueva columna denominada "Hour". Luego, filtra las peticiones para concentrarse solo en aquellas de tipo "GET". Posteriormente, genera una tabla de frecuencias para contar cuántas peticiones GET ocurrieron durante cada hora del día. Finalmente, identifica la hora con la mayor cantidad de peticiones GET y construye un mensaje que informa sobre este pico de tráfico.
+
+Al ejecutar este código, se mostrará en la consola la hora específica con el mayor volumen de peticiones "GET" y la cantidad de peticiones recibidas durante esa hora, proporcionando una visión clara de cuándo el servidor experimenta su carga máxima en términos de peticiones "GET".
+
+```{r hora-mayor-volumen}
+library(ggplot2)
+
+get_requests$Hour <- as.factor(get_requests$Hour)
+
+# Gráfico de barras de peticiones GET por hora del día
+ggplot(get_requests, aes(x = Hour)) +
+  geom_bar() + # Usamos 'geom_bar()' para contar el número de peticiones por hora
+  labs(x = "Hora del día", y = "Número de peticiones GET", title = "Volumen de Peticiones GET por Hora del Día") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) # Rotamos las etiquetas del eje X para mejor lectura
 ```
 
 ### Pregunta 4: De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?
 
+Para abordar la cuarta pregunta, calculamos el total de bytes transmitidos en peticiones de descarga de ficheros de texto (".txt") hechas por direcciones IP educativas (".edu"). El código para realizar este cálculo es el siguiente:
+
 ```{r bytes-txt-edu}
+# Convertimos la columna "Bytes" a numérico en caso de que no lo sea.
 data$Bytes <- as.numeric(data$Bytes)
 
-#Buscamos las peticiones que la IP acaba en .edu y la URL acaba en .txt
+# Filtramos las peticiones de IPs educativas que solicitan archivos .txt y sumamos sus bytes.
 edu_requests <- data[str_detect(data$IP, "\\.edu$") & str_detect(data$URL, "\\.txt$"), ]
 total_bytes_txt_edu <- sum(edu_requests$Bytes, na.rm = TRUE)
 
+# Mostramos el total de bytes transmitidos para estas peticiones.
 paste("Total de bytes transmitidos en peticiones .txt por .edu:", total_bytes_txt_edu)
 ```
 
+```{r bytes-txt-edu}
+library(ggplot2)
+library(dplyr)
+library(stringr)
+
+# Asumimos que 'data' es tu dataframe y que ya has convertido la columna 'Bytes' a numérico
+data$Bytes <- as.numeric(data$Bytes)
+
+# Filtramos las peticiones para incluir solo aquellas que solicitan archivos .txt
+txt_requests <- data %>%
+  filter(str_detect(URL, "\\.txt$"))
+
+# Creamos una nueva columna que clasifica las IPs como 'Educativas' o 'Otros'
+txt_requests <- txt_requests %>%
+  mutate(Category = if_else(str_detect(IP, "\\.edu$"), "Educativas", "Otros"))
+
+# Sumamos los bytes transmitidos por cada categoría
+bytes_by_category <- txt_requests %>%
+  group_by(Category) %>%
+  summarize(TotalBytes = sum(Bytes, na.rm = TRUE))
+
+# Gráfico de barras del total de bytes transmitidos por categoría
+ggplot(bytes_by_category, aes(x = Category, y = TotalBytes, fill = Category)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("Educativas" = "blue", "Otros" = "red")) +
+  labs(x = "Categoría de Dominio", y = "Total de Bytes Transmitidos", title = "Total de Bytes Transmitidos en Peticiones .txt por Categoría de Dominio") +
+  theme_minimal()
+```
+
+Este código identifica las peticiones relevantes y suma los bytes asociados a ellas, ignorando los valores faltantes (NA). El resultado se presenta en un mensaje conciso que indica el total de bytes transmitidos en peticiones de archivos de texto desde instituciones educativas.
+
 ### Pregunta 5: Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?
+
+Este código compara cada URL en el dataframe con la cadena "/", y luego suma todas las coincidencias para obtener el número total de peticiones a la raíz del servidor. El argumento `na.rm = TRUE` asegura que cualquier valor faltante (NA) sea ignorado en el recuento. Finalmente, se presenta el total en un mensaje claro y directo.
 
 ```{r num-peticiones-slash}
 #Buscamos las URL que coinciden con /
@@ -171,11 +285,49 @@ num_peticiones_slash <- sum(data$URL == "/", na.rm = TRUE)
 paste("Total de peticiones a la URL '/':", num_peticiones_slash)
 ```
 
+```{r num-peticiones-slash-plot}
+library(ggplot2)
+library(dplyr)
+
+# Asumimos que 'data' es tu dataframe y que la columna 'URL' ya existe
+# Creamos una nueva columna que clasifica las URLs como 'Raíz' o 'Otras'
+data <- data %>%
+  mutate(URL_Type = if_else(URL == "/", "Raíz", "Otras"))
+
+# Calculamos el recuento de peticiones para cada tipo de URL
+url_counts <- data %>%
+  group_by(URL_Type) %>%
+  summarize(Count = n())
+
+# Gráfico de barras del número de peticiones a la URL raíz vs otras URLs
+ggplot(url_counts, aes(x = URL_Type, y = Count, fill = URL_Type)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Count), vjust = -0.3, color = "white") +
+  scale_fill_manual(values = c("Raíz" = "blue", "Otras" = "red")) +
+  labs(x = "Tipo de URL", y = "Número de Peticiones", title = "Número de Peticiones a la URL Raíz vs Otras URLs") +
+  theme_minimal()
+```
+
 ### Pregunta 6: Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"?
 
-```{r num-peticiones-no-https2.0}
-#Buscamos las peticiones que no usan el protocolo HTTP0.2
-num_peticiones_no_http <- sum(data$Protocolo != "HTTP/0.2\"")
+Para contestar la sexta pregunta, determinamos el número de peticiones HTTP que no utilizan el protocolo "HTTP/0.2". El código para calcular esta cifra es el siguiente:
 
-paste("Total de peticiones que no son con el protocolo HTTP/0.2:", num_peticiones_no_http)
+```{r num-peticiones-no-https2.0}
+# Obtenemos el recuento de peticiones para cada tipo de protocolo
+protocol_counts <- table(data$Protocolo)
+
+# Convertimos la tabla en un dataframe para una mejor visualización y manipulación
+protocol_counts_df <- as.data.frame(protocol_counts)
+
+# Renombramos las columnas del dataframe para mayor claridad
+colnames(protocol_counts_df) <- c("Protocolo", "Recuento")
+
+# Ordenamos el dataframe por recuento de forma descendente
+protocol_counts_df <- protocol_counts_df %>%
+  arrange(desc(Recuento))
+
+# Mostramos el dataframe con los recuentos de cada protocolo
+print(protocol_counts_df)
 ```
+
+Este código utiliza una comparación lógica para identificar todas las peticiones cuyo campo "Protocolo" es distinto de "HTTP/0.2". Luego, suma todas las instancias que cumplen esta condición para obtener el total de peticiones que no corresponden a ese protocolo. El resultado se presenta en un mensaje que informa la cantidad de peticiones con protocolos diferentes a "HTTP/0.2".
