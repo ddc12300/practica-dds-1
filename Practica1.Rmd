@@ -150,7 +150,7 @@ Para realizar esta tarea, utilizamos las siguientes instrucciones:
 # Primero, cargamos la librería stringr, que proporciona funciones poderosas para el manejo de texto.
 library(stringr)
 
-# Utilizamos la función str_detect() de la librería stringr para buscar en la columna "IP" aquellas cadenas que terminan en ".edu".
+# Utilizamos la función str_detect() de la librería stringr para buscar en la columna "IP" aquellas cadenas que contienen ".edu".
 # La expresión regular "\\.edu$" es utilizada para identificar este patrón, donde "\\" escapa el punto (para que se interprete literalmente)
 # y "$" indica el final de la cadena.
 ips_educativas <- sum(str_detect(data$IP, "\\.edu"))
